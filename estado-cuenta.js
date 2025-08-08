@@ -54,10 +54,8 @@ function imprimirTodo() {
     const resumenImpresion = document.getElementById("resumenImpresion");
     const cuerpoTablaImpresion = document.getElementById("tablaCompletaImpresion");
 
-    // Copiar el resumen
     resumenImpresion.innerHTML = document.getElementById("resumen").innerHTML;
 
-    // Llenar la tabla completa con todas las filas
     cuerpoTablaImpresion.innerHTML = "";
     datosFilas.forEach((filaHTML, index) => {
         const tr = document.createElement("tr");
@@ -65,17 +63,13 @@ function imprimirTodo() {
         cuerpoTablaImpresion.appendChild(tr);
     });
 
-    // Mostrar tabla completa solo para imprimir
     contenedorImpresion.style.display = "block";
 
-    // Ocultar todo lo demás temporalmente
     document.querySelectorAll(".no-print").forEach(el => el.style.display = "none");
     document.getElementById("tablaEstadoCuentaCompleta").style.display = "none";
 
-    // Imprimir
     window.print();
 
-    // Restaurar elementos
     document.querySelectorAll(".no-print").forEach(el => el.style.display = "");
     document.getElementById("tablaEstadoCuentaCompleta").style.display = "";
     contenedorImpresion.style.display = "none";

@@ -214,4 +214,51 @@ button:hover {
   font-size: 0.9rem;
   color: #555;
   font-style: italic;
+}.acciones-import-export {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
+
+.btn-exportar,
+.btn-importar-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-exportar {
+  background-color: #2e7d32;
+  color: #fff;
+  border: none;
+}
+
+.btn-exportar:hover {
+  background-color: #1b5e20;
+}
+
+.btn-importar-label {
+  background-color: #fbc02d;
+  color: #000;
+  border: none;
+}
+
+.btn-importar-label:hover {
+  background-color: #f9a825;
+}
+
+#fileImportar {
+  display: none;
+}
+

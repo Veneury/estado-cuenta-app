@@ -16,7 +16,6 @@ if (configGuardada) {
     });
 }
 
-// ✅ Validación dinámica del formulario
 function validarFormularioPago() {
     const fechaValida = fechaPagoInput.value.trim() !== "";
     const montoValido = montoPagoInput.value.trim() !== "" && parseFloat(montoPagoInput.value) > 0;
@@ -24,7 +23,7 @@ function validarFormularioPago() {
 }
 fechaPagoInput.addEventListener("input", validarFormularioPago);
 montoPagoInput.addEventListener("input", validarFormularioPago);
-validarFormularioPago(); // 🔒 Desactiva por defecto
+validarFormularioPago();
 
 configForm.addEventListener("submit", e => {
     e.preventDefault();
@@ -137,7 +136,6 @@ document.querySelector(".modal .close").onclick = () => {
     document.getElementById("modalComprobante").style.display = "none";
 };
 
-// Acordeón
 document.addEventListener('DOMContentLoaded', () => {
     const headers = document.querySelectorAll('.accordion-header');
     headers.forEach(header => {
@@ -154,6 +152,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    validarFormularioPago(); // vuelve a validar en caso de recarga
+    validarFormularioPago();
     renderPagos();
+    document.getElementById("btnExportar").addEventListener("click", () => {
+        const config = JSON.parse(localStorage.getItem("configuracion")) || {};
+        const pagos = JSON.parse(localStorage.getItem("pagos")) || [];
+
+        const data = {
+            configuracion: config,
+            pagos: pagos
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "estado_cuenta_export.json";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("fileImportar").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+                const data = JSON.parse(e.target.result);
+
+                if (data.configuracion && data.pagos) {
+                    localStorage.setItem("configuracion", JSON.stringify(data.configuracion));
+                    localStorage.setItem("pagos", JSON.stringify(data.pagos));
+                    alert("✅ Datos importados correctamente. Se recargará la página.");
+                    location.reload();
+                } else {
+                    alert("❌ El archivo no contiene una estructura válida.");
+                }
+            } catch (err) {
+                alert("❌ Error al leer el archivo: " + err.message);
+            }
+        };
+
+        reader.readAsText(file);
+    });
+
+
 });

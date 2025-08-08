@@ -11,8 +11,6 @@
 <body>
     <main class="container">
         <h1>Estado de Cuenta</h1>
-
-        <!-- Configuración Inicial -->
         <section class="accordion">
             <button class="accordion-header">📋 Configuración inicial</button>
             <div class="accordion-content">
@@ -26,10 +24,16 @@
                     <input type="month" id="fechaInicioCuotas" required />
                     <button type="submit">Guardar configuración</button>
                 </form>
+                <div class="acciones-import-export">
+                    <button id="btnExportar" class="btn-exportar">⬇ Exportar pagos</button>
+                    <label for="fileImportar" class="btn-importar-label">📁 Importar pagos</label>
+                    <input type="file" id="fileImportar" accept="application/json" />
+                </div>
+
+
             </div>
         </section>
 
-        <!-- Registrar Pago -->
         <section class="accordion">
             <button class="accordion-header">💵 Registrar Pago</button>
             <div class="accordion-content">
@@ -50,7 +54,6 @@
             </div>
         </section>
 
-        <!-- Pagos Registrados -->
         <section class="accordion">
             <button class="accordion-header">📅 Pagos registrados</button>
             <div class="accordion-content">
@@ -74,7 +77,6 @@
         <a href="estado-cuenta.html" class="btn-link">📄 Ver estado de cuenta completo</a>
     </main>
 
-    <!-- Modal de comprobante -->
     <div id="modalComprobante" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
