@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estado de Cuenta</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="estado-cuenta.css" />
+</head>
+
+<body>
+    <div class="container"> <a href="index.html" class="btn-link no-print">← Volver</a>
+
+        <h1>Estado de Cuenta Completo</h1>
+        <div id="resumen"></div>
+
+        <button onclick="imprimirTodo()" class="print-btn no-print">🖨️ Imprimir</button>
+
+        <table id="tablaEstadoCuentaCompleta">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mes</th>
+                    <th>Cuota</th>
+                    <th>Pagado acumulado</th>
+                    <th>Pagado en el mes</th>
+                    <th>Excedente</th>
+                    <th>Restante de cuota</th>
+                    <th>Total restante</th>
+                </tr>
+            </thead>
+            <tbody id="tablaEstadoCuenta"></tbody>
+        </table>
+        <!-- Tabla completa oculta para impresión -->
+        <div id="contenedorImpresion" style="display: none;">
+            <h2>Estado de Cuenta</h2>
+            <div id="resumenImpresion"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mes</th>
+                        <th>Cuota</th>
+                        <th>Pagado acumulado</th>
+                        <th>Pagado en el mes</th>
+                        <th>Excedente</th>
+                        <th>Restante de cuota</th>
+                        <th>Total restante</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaCompletaImpresion"></tbody>
+            </table>
+        </div>
+
+        <div id="paginacion" class="pagination no-print"></div>
+        <a href="index.html" class="btn-link no-print">← Volver</a>
+    </div>
+
+    <script src="estado-cuenta.js"></script>
+</body>
+
+</html>

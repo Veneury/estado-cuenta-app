@@ -1,0 +1,159 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fbfc;
+  color: #333;
+  margin: 0;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #1e88e5;
+  margin-bottom: 1rem;
+}
+
+#resumen p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+#print-resumen {
+  margin-top: 2rem;
+}
+
+.print-btn {
+  display: inline-block;
+  margin: 1rem auto;
+  background-color: #1976d2;
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.print-btn:hover {
+  background-color: #1565c0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+thead {
+  background-color: #e3f2fd;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f1faff;
+}
+
+tr.highlight-row {
+  background-color: #e0f7fa !important;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+.highlight-row {
+  background-color: #e0f7fa !important;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { box-shadow: 0 0 5px #00c853; }
+  to { box-shadow: 0 0 10px #00e676; }
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1.2rem;
+  background-color: #42a5f5;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #1e88e5;
+}
+
+.pagination button[disabled] {
+  background-color: #bbdefb;
+  cursor: not-allowed;
+}
+
+.btn-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  #contenedorImpresion {
+    display: block !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}

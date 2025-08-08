@@ -1,0 +1,209 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f9fc;
+  color: #1a1a1a;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  text-align: center;
+  color: #1a237e;
+  margin-bottom: 2rem;
+}
+
+/* Accordion */
+.accordion {
+  margin-bottom: 1rem;
+}
+
+.accordion-header {
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background-color: #0d47a1;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-header.active + .accordion-content {
+  max-height: 1000px;
+  padding-top: 0.5rem;
+}
+
+.card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+input, button, select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0d47a1;
+}
+
+.danger {
+  background: #e53935;
+}
+
+.danger:hover {
+  background: #b71c1c;
+}
+
+.btn-link {
+  display: block;
+  margin-top: 2rem;
+  text-align: center;
+  color: #0d47a1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+#pagosTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#pagosTable th, #pagosTable td {
+  padding: 0.7rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+#pagosTable th {
+  background-color: #e3f2fd;
+}
+#pagosTable input[type="file"] {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#pagosTable button {
+  margin: 2px;
+  white-space: nowrap;
+}/* Comprobante modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  margin: auto;
+  padding: 1rem;
+  background-color: white;
+  width: 80%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #e3f2fd;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.file-label input {
+  display: none;
+}
+.custom-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.custom-file-upload label {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: fit-content;
+}
+
+.custom-file-upload label:hover {
+  background-color: #0d47a1;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+#nombreArchivo {
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Pagos</title>
+    <link rel="stylesheet" href="registro.css" />
+</head>
+
+<body>
+    <main class="container">
+        <h1>Estado de Cuenta</h1>
+
+        <!-- Configuración Inicial -->
+        <section class="accordion">
+            <button class="accordion-header">📋 Configuración inicial</button>
+            <div class="accordion-content">
+                <form id="configForm" class="card">
+                    <input type="number" id="totalTomado" placeholder="Total tomado (USD)" required step="0.01" />
+                    <input type="number" id="separacion" placeholder="Total de separación (USD)" required step="0.01" />
+                    <input type="number" id="inicial" placeholder="Total de inicial (USD)" required step="0.01" />
+                    <input type="number" id="cuotaMensual" placeholder="Cuota mensual (USD)" required step="0.01" />
+                    <input type="number" id="cantidadCuotas" placeholder="Cantidad de cuotas" required />
+                    <label for="fechaInicioCuotas">Fecha de inicio de cuotas:</label>
+                    <input type="month" id="fechaInicioCuotas" required />
+                    <button type="submit">Guardar configuración</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Registrar Pago -->
+        <section class="accordion">
+            <button class="accordion-header">💵 Registrar Pago</button>
+            <div class="accordion-content">
+                <form id="pagoForm" class="card">
+                    <input type="date" id="fechaPago" required />
+                    <input type="number" id="montoPago" placeholder="Monto pagado (USD)" required step="0.01" />
+                    <div class="custom-file-upload">
+                        <label for="comprobantePago">
+                            📎 Elegir comprobante
+                        </label>
+                        <input type="file" id="comprobantePago" accept="image/*,application/pdf" />
+                        <span id="nombreArchivo">Ningún archivo seleccionado</span>
+                    </div>
+
+                    <button type="submit" id="btnAgregarPago" disabled>Agregar pago</button>
+                    <button type="button" id="reiniciarTodo" class="danger">Reiniciar todo</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Pagos Registrados -->
+        <section class="accordion">
+            <button class="accordion-header">📅 Pagos registrados</button>
+            <div class="accordion-content">
+                <section class="card">
+                    <table id="pagosTable">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th>Comprobante</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </section>
+            </div>
+        </section>
+
+        <a href="estado-cuenta.html" class="btn-link">📄 Ver estado de cuenta completo</a>
+    </main>
+
+    <!-- Modal de comprobante -->
+    <div id="modalComprobante" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="comprobanteViewer" width="100%" height="500px"></iframe>
+            <a id="descargarComprobante" class="btn-link" download="comprobante">⬇ Descargar comprobante</a>
+        </div>
+    </div>
+
+    <script src="registro.js"></script>
+</body>
+
+</html>
