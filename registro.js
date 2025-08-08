@@ -2,6 +2,10 @@ const configForm = document.getElementById("configForm");
 const pagoForm = document.getElementById("pagoForm");
 const pagosTableBody = document.querySelector("#pagosTable tbody");
 const btnReiniciar = document.getElementById("reiniciarTodo");
+const fechaPagoInput = document.getElementById("fechaPago");
+const montoPagoInput = document.getElementById("montoPago");
+const btnAgregarPago = document.getElementById("btnAgregarPago");
+const comprobanteInput = document.getElementById("comprobantePago");
 
 let pagos = JSON.parse(localStorage.getItem("pagos")) || [];
 
@@ -12,15 +16,25 @@ if (configGuardada) {
     });
 }
 
+// ✅ Validación dinámica del formulario
+function validarFormularioPago() {
+    const fechaValida = fechaPagoInput.value.trim() !== "";
+    const montoValido = montoPagoInput.value.trim() !== "" && parseFloat(montoPagoInput.value) > 0;
+    btnAgregarPago.disabled = !(fechaValida && montoValido);
+}
+fechaPagoInput.addEventListener("input", validarFormularioPago);
+montoPagoInput.addEventListener("input", validarFormularioPago);
+validarFormularioPago(); // 🔒 Desactiva por defecto
+
 configForm.addEventListener("submit", e => {
     e.preventDefault();
     const data = {
-        totalTomado: parseFloat(totalTomado.value),
-        separacion: parseFloat(separacion.value),
-        inicial: parseFloat(inicial.value),
-        cuotaMensual: parseFloat(cuotaMensual.value),
-        cantidadCuotas: parseInt(cantidadCuotas.value),
-        fechaInicioCuotas: fechaInicioCuotas.value
+        totalTomado: parseFloat(document.getElementById("totalTomado").value),
+        separacion: parseFloat(document.getElementById("separacion").value),
+        inicial: parseFloat(document.getElementById("inicial").value),
+        cuotaMensual: parseFloat(document.getElementById("cuotaMensual").value),
+        cantidadCuotas: parseInt(document.getElementById("cantidadCuotas").value),
+        fechaInicioCuotas: document.getElementById("fechaInicioCuotas").value
     };
     localStorage.setItem("configuracion", JSON.stringify(data));
     alert("✅ Configuración guardada correctamente");
@@ -28,9 +42,9 @@ configForm.addEventListener("submit", e => {
 
 pagoForm.addEventListener("submit", e => {
     e.preventDefault();
-    const fecha = document.getElementById("fechaPago").value;
-    const monto = parseFloat(document.getElementById("montoPago").value);
-    const file = document.getElementById("comprobantePago").files[0];
+    const fecha = fechaPagoInput.value;
+    const monto = parseFloat(montoPagoInput.value);
+    const file = comprobanteInput.files[0];
     const reader = new FileReader();
 
     reader.onload = function () {
@@ -38,6 +52,9 @@ pagoForm.addEventListener("submit", e => {
         pagos.push({ fecha, monto, comprobante });
         localStorage.setItem("pagos", JSON.stringify(pagos));
         renderPagos();
+        pagoForm.reset();
+        validarFormularioPago();
+        document.getElementById("nombreArchivo").textContent = "Ningún archivo seleccionado";
     };
 
     if (file) {
@@ -46,12 +63,17 @@ pagoForm.addEventListener("submit", e => {
         pagos.push({ fecha, monto, comprobante: null });
         localStorage.setItem("pagos", JSON.stringify(pagos));
         renderPagos();
+        pagoForm.reset();
+        validarFormularioPago();
+        document.getElementById("nombreArchivo").textContent = "Ningún archivo seleccionado";
     }
 });
-document.getElementById("comprobantePago").addEventListener("change", function () {
+
+comprobanteInput.addEventListener("change", function () {
     const nombre = this.files[0] ? this.files[0].name : "Ningún archivo seleccionado";
     document.getElementById("nombreArchivo").textContent = nombre;
 });
+
 btnReiniciar.addEventListener("click", () => {
     if (confirm("¿Estás seguro de reiniciar todo?")) {
         localStorage.clear();
@@ -65,19 +87,17 @@ function renderPagos() {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-      <td><input type="date" value="${pago.fecha}" onchange="actualizarPago(${i}, 'fecha', this.value)"/></td>
-      <td><input type="number" step="0.01" value="${pago.monto}" onchange="actualizarPago(${i}, 'monto', parseFloat(this.value))"/></td>
-      <td>
-        ${pago.comprobante ? `
-          <button onclick="verComprobante('${pago.comprobante.replace(/'/g, "\\'")}', ${i})">👁️ Ver</button>
-        ` : '—'}
-        <br/>
-        <label class="file-label">📎
-          <input type="file" onchange="actualizarComprobante(this.files[0], ${i})"/>
-        </label>
-      </td>
-      <td><button onclick="eliminarPago(${i})">🗑️</button></td>
-    `;
+            <td><input type="date" value="${pago.fecha}" onchange="actualizarPago(${i}, 'fecha', this.value)"/></td>
+            <td><input type="number" step="0.01" value="${pago.monto}" onchange="actualizarPago(${i}, 'monto', parseFloat(this.value))"/></td>
+            <td>
+                ${pago.comprobante ? `<button onclick="verComprobante('${pago.comprobante.replace(/'/g, "\\'")}', ${i})">👁️ Ver</button>` : '—'}
+                <br/>
+                <label class="file-label">📎
+                    <input type="file" onchange="actualizarComprobante(this.files[0], ${i})"/>
+                </label>
+            </td>
+            <td><button onclick="eliminarPago(${i})">🗑️</button></td>
+        `;
 
         pagosTableBody.appendChild(row);
     });
@@ -117,6 +137,7 @@ document.querySelector(".modal .close").onclick = () => {
     document.getElementById("modalComprobante").style.display = "none";
 };
 
+// Acordeón
 document.addEventListener('DOMContentLoaded', () => {
     const headers = document.querySelectorAll('.accordion-header');
     headers.forEach(header => {
@@ -133,23 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 👇👇👇 AÑADE ESTE BLOQUE DENTRO DEL DOMContentLoaded
-
-    const fechaPagoInput = document.getElementById("fechaPago");
-    const montoPagoInput = document.getElementById("montoPago");
-    const btnAgregarPago = document.getElementById("btnAgregarPago");
-
-    function validarFormularioPago() {
-        const fechaValida = fechaPagoInput.value.trim() !== "";
-        const montoValido = parseFloat(montoPagoInput.value) > 0;
-        btnAgregarPago.disabled = !(fechaValida && montoValido);
-    }
-
-    fechaPagoInput.addEventListener("input", validarFormularioPago);
-    montoPagoInput.addEventListener("input", validarFormularioPago);
-    validarFormularioPago(); // <-- desactiva botón al cargar
-
-    // 👆👆👆 FIN DEL BLOQUE
-
+    validarFormularioPago(); // vuelve a validar en caso de recarga
     renderPagos();
 });
